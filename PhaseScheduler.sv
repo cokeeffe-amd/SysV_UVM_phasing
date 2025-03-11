@@ -48,20 +48,15 @@ class PhaseScheduler;
         
         // Run phase for all components
         $display("\n--- Starting RUN PHASE ---");
-        
        
               foreach (component_queue[i]) begin
                 fork
-                
                     int j = i; //Using local variable
                     component_queue[j].my_run_phase(component_queue[j].name);
-                    
                  join_none
-       
                 end     
          wait fork;  
         
-    
         
         $display("--- RUN PHASE COMPLETED ---");
 
@@ -74,6 +69,8 @@ class PhaseScheduler;
             
         $display("\n--- ALL PHASES COMPLETED ---");
     endtask: execute_phases
+
+
 endclass: PhaseScheduler
 
 `endif // PHASE_SCHEDULER_SV

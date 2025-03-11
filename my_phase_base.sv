@@ -6,7 +6,7 @@
 virtual class my_phase_base;
     string name;
     static bit is_scheduler_available = 0;
-    int run_delay = 10; //default run delay is 10 time units
+    int run_delay = 10; //default run delay is 10 time units, can be changed by child classes
 
 
     // Constructor without auto-registration
@@ -53,6 +53,9 @@ virtual class my_phase_base;
         $display("component %s, phase: my_final_phase started at time %0t", name, $time);
         $display("component %s, phase: my_final_phase completed at time %0t", name, $time);
     endfunction: my_final_phase
+
+
+
 
 endclass
 
