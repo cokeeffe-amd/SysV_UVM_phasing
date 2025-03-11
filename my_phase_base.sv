@@ -33,22 +33,25 @@ virtual class my_phase_base;
     endfunction: get_name
 
     virtual function void my_build_phase(string name); //get object to pass "name" - this should be the name of the object calling function i.e driver_1
-        $display("component %s, phase: my_build_phase", name);
+        $display("component %s, phase: my_build_phase started at time %0t", name, $time);
+        $display("component %s, phase: my_build_phase completed at time %0t", name, $time);
     endfunction: my_build_phase
 
     virtual function void my_reset_phase(string name);
-        $display("component %s, phase: my_reset_phase", name);
+        $display("component %s, phase: my_reset_phase started at time %0t", name, $time);
+        $display("component %s, phase: my_reset_phase completed at time %0t", name, $time);
     endfunction: my_reset_phase
 
     virtual task my_run_phase(string name);    //task since run phase consumes time
         $display("component %s, phase: my_run_phase started at time %0t", name, $time);
-        #run_delay;
+        #run_delay;     //To simulate run phase consuming time
         $display("component %s, phase: my_run_phase completed at time %0t", name, $time);
     endtask: my_run_phase
   
 
     virtual function void my_final_phase(string name);
-        $display("component %s, phase: my_final_phase", name);
+        $display("component %s, phase: my_final_phase started at time %0t", name, $time);
+        $display("component %s, phase: my_final_phase completed at time %0t", name, $time);
     endfunction: my_final_phase
 
 endclass
