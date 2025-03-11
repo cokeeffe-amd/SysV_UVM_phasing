@@ -6,7 +6,9 @@
 virtual class my_phase_base;
     string name;
     static bit is_scheduler_available = 0;
-    
+    int run_delay = 10; //default run delay is 10 time units
+
+
     // Constructor without auto-registration
     function new(string name);
         this.name = name;
@@ -38,9 +40,12 @@ virtual class my_phase_base;
         $display("component %s, phase: my_reset_phase", name);
     endfunction: my_reset_phase
 
-    virtual function void my_run_phase(string name);
-        $display("component %s, phase: my_run_phase", name);
-    endfunction: my_run_phase
+    virtual task my_run_phase(string name);    //task since run phase consumes time
+        $display("component %s, phase: my_run_phase started at time %0t", name, $time);
+        #run_delay;
+        $display("component %s, phase: my_run_phase completed at time %0t", name, $time);
+    endtask: my_run_phase
+  
 
     virtual function void my_final_phase(string name);
         $display("component %s, phase: my_final_phase", name);
