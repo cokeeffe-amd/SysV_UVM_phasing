@@ -3,6 +3,7 @@
 `include "Monitor.sv"
 `include "Sequencer.sv"
 `include "Env.sv"	
+`include "Scoreboard.sv"
 
 program automatic test1 ();  
 
@@ -10,12 +11,14 @@ program automatic test1 ();
     Driver driver_array[];
     Monitor monitor_array[];
     Sequencer sequencer_array[];
+    Scoreboard scoreboard_array[];
     Env env_array[];
 
     //Set number of each component
     int num_drivers = 1;
     int num_monitors = 3;
     int num_sequencers = 2;
+    int num_scoreboards =1;
     int num_envs = 1;
 
     // Get the phase scheduler instance
@@ -25,7 +28,7 @@ program automatic test1 ();
         // Create the phase scheduler 
         phase_scheduler = PhaseScheduler::get_instance();
 
-        // Create and initialize components
+        // Create and initialise components
         initialise_components();
 
         // Execute all phases - this will wait for each phase to complete before moving to the next one
@@ -47,6 +50,10 @@ program automatic test1 ();
 
         for(int i=0; i<num_sequencers; i++) begin
             sequencer_array[i] = new($sformatf("Sequencer_%0d", i+1));
+        end
+
+        for(int i=0; i<num_scoreboards; i++) begin
+            scoreboard_array[i] = new($sformatf("Scoreboard_%0d", i+1));
         end
 
         for(int i=0; i<num_envs; i++) begin
