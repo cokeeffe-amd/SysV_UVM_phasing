@@ -1,3 +1,7 @@
+`ifndef PHASE_SCHEDULER_SV
+`define PHASE_SCHEDULER_SV
+
+`include "phase_types.sv"
 `include "my_phase_base.sv"
 
 class PhaseScheduler;
@@ -6,6 +10,12 @@ class PhaseScheduler;
     
     // Queue to hold all registered components
     static my_phase_base component_queue[$];
+    
+    // Constructor
+    function new();
+        // Let my_phase_base know the scheduler is available
+        my_phase_base::set_scheduler_available();
+    endfunction
     
     // Static method to register components
     static function void register_component(my_phase_base comp);
@@ -51,3 +61,5 @@ class PhaseScheduler;
         $display("\n--- ALL PHASES COMPLETED ---");
     endtask: execute_phases
 endclass: PhaseScheduler
+
+`endif // PHASE_SCHEDULER_SV

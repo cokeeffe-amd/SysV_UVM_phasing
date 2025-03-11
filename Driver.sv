@@ -1,8 +1,14 @@
+`ifndef DRIVER_SV
+`define DRIVER_SV
+
 `include "my_phase_base.sv"
 
 class Driver extends my_phase_base;
     function new(string name);
-        this.name = name;  // Store the name in the base class property
+        super.new(name);  // Must call parent constructor first
+        register_with_scheduler(); // Then call the registration function
     endfunction: new
 
 endclass: Driver
+
+`endif // DRIVER_SV
