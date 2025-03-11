@@ -2,42 +2,59 @@
 `include "Driver.sv"
 `include "Monitor.sv"
 `include "Sequencer.sv"
+`include "Env.sv"	
 
 program automatic test1 ();  
 
-    // Create component instances
-    //Driver driver1, driver2, driver3, driver4;
+    // Create component arrays
     Driver driver_array[];
-   // Monitor monitor1, monitor2, monitor3;
     Monitor monitor_array[];
-    //Sequencer sequencer1, sequencer2;
     Sequencer sequencer_array[];
+    Env env_array[];
+
+    //Set number of each component
+    int num_drivers = 1;
+    int num_monitors = 3;
+    int num_sequencers = 2;
+    int num_envs = 1;
 
     // Get the phase scheduler instance
     PhaseScheduler phase_scheduler;
     
     initial begin
-        // Create the phase scheduler FIRST
+        // Create the phase scheduler 
         phase_scheduler = PhaseScheduler::get_instance();
-        
-        // Create multiple component instances - they will auto-register when created due to my_phase_base constructor functionality
-        for(int i=0; i<4; i++) begin
-            driver_array[(i+1)] = new($sformatf("Driver_%0d", (i+1)));
-        end
 
-        for(int i=0; i<3; i++) begin
-            monitor_array[(i+1)] = new($sformatf("Monitor_%0d", (i+1)));
-        end
-        
+        // Create and initialize components
+        initialise_components();
 
-        for(int i=0; i<2; i++) begin
-            sequencer_array[(i+1)] = new($sformatf("Sequencer_%0d", (i+1)));
-        end
-        
         // Execute all phases - this will wait for each phase to complete before moving to the next one
         phase_scheduler.execute_phases();
     end
 
-    
+
+
+    // Function to create and initialise components
+    function void initialise_components();
+        // Create multiple component instances - will auto-register 
+        for(int i=0; i<num_drivers; i++) begin
+            driver_array[i] = new($sformatf("Driver_%0d", i+1));
+        end
+
+        for(int i=0; i<num_monitors; i++) begin
+            monitor_array[i] = new($sformatf("Monitor_%0d", i+1));
+        end
+
+        for(int i=0; i<num_sequencers; i++) begin
+            sequencer_array[i] = new($sformatf("Sequencer_%0d", i+1));
+        end
+
+        for(int i=0; i<num_envs; i++) begin
+            env_array[i] = new($sformatf("Env_%0d", i+1));
+        end
+
+
+    endfunction
+
 
 endprogram: test1
