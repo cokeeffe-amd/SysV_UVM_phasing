@@ -6,9 +6,7 @@
 virtual class my_phase_base;
     string name;
     static bit is_scheduler_available = 0;
-    int run_delay = 10; //default run delay is 10 time units, can be changed by child classes
-
-
+    
     // Constructor without auto-registration
     function new(string name);
         this.name = name;
@@ -27,35 +25,26 @@ virtual class my_phase_base;
     endfunction
     
     // get_name function to retrieve the component name
-//ToDo - see if still needed
+    //used only to print the name of the component upon being registered
     virtual function string get_name();
         return name;
     endfunction: get_name
 
     virtual function void my_build_phase(string name); //get object to pass "name" - this should be the name of the object calling function i.e driver_1
-        $display("component %s, phase: my_build_phase started at time %0t", name, $time);
-        $display("component %s, phase: my_build_phase completed at time %0t", name, $time);
+        $display("component %s, phase: my_build_phase", name);
     endfunction: my_build_phase
 
     virtual function void my_reset_phase(string name);
-        $display("component %s, phase: my_reset_phase started at time %0t", name, $time);
-        $display("component %s, phase: my_reset_phase completed at time %0t", name, $time);
+        $display("component %s, phase: my_reset_phase", name);
     endfunction: my_reset_phase
 
-    virtual task my_run_phase(string name);    //task since run phase consumes time
-        $display("component %s, phase: my_run_phase started at time %0t", name, $time);
-        #run_delay;     //To simulate run phase consuming time
-        $display("component %s, phase: my_run_phase completed at time %0t", name, $time);
-    endtask: my_run_phase
-  
+    virtual function void my_run_phase(string name);
+        $display("component %s, phase: my_run_phase", name);
+    endfunction: my_run_phase
 
     virtual function void my_final_phase(string name);
-        $display("component %s, phase: my_final_phase started at time %0t", name, $time);
-        $display("component %s, phase: my_final_phase completed at time %0t", name, $time);
+        $display("component %s, phase: my_final_phase", name);
     endfunction: my_final_phase
-
-
-
 
 endclass
 
