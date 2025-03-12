@@ -6,7 +6,7 @@
     class Env extends my_phase_base;
         function new(string name);
             super.new(name);  
-            run_delay = 25;
+            run_delay = 25; //overrides default of 10
             register_with_scheduler();
         endfunction: new
 

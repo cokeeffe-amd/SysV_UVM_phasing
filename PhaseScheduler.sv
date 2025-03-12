@@ -18,11 +18,11 @@ class PhaseScheduler;
     endfunction
     
     // Static method to register components
-    static function void register_component(my_phase_base comp);
+    static function void register_component(my_phase_base component);
         if (instance == null)
             instance = new();
-        component_queue.push_back(comp);
-        $display("Auto-registered component: %s", comp.get_name());
+        component_queue.push_back(component);
+        $display("Registered component: %s", component.get_name());
     endfunction: register_component
     
     // Get singleton instance
@@ -48,10 +48,19 @@ class PhaseScheduler;
         
         // Run phase for all components
         $display("\n--- Starting RUN PHASE ---");
-        foreach (component_queue[i]) 
-            component_queue[i].my_run_phase(component_queue[i].name);
-        $display("--- RUN PHASE COMPLETED ---");
+       
+              foreach (component_queue[i]) begin
+                fork
+                    int j = i; //Using local variable
+                    component_queue[j].my_run_phase(component_queue[j].name);
+                 join_none
+                end     
+         wait fork;  
         
+        
+        $display("--- RUN PHASE COMPLETED ---");
+
+
         // Final phase for all components
         $display("\n--- Starting FINAL PHASE ---");
         foreach (component_queue[i]) 
@@ -60,6 +69,8 @@ class PhaseScheduler;
             
         $display("\n--- ALL PHASES COMPLETED ---");
     endtask: execute_phases
+
+
 endclass: PhaseScheduler
 
 `endif // PHASE_SCHEDULER_SV
