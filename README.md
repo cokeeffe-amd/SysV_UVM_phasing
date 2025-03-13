@@ -18,8 +18,11 @@ Designed to be easily extendable and customisable for verification environments.
      
 2. Run the `test.sv` program block and observe log files.
     - simv -l simv.log
+    - **Optional set number of components:** eg:   simv -l simv.log +NUMSEQUENCERS=3 +NUMSCOREBOARDS=2
   
 
 ## Notes
+- Default is one of each component. Can change in command line.
 - Each component registers itself with the scheduler.
+- Change number of comonents using +NUMCOMPONENTNAME = <numtosetto>
 - Modify the `run_delay` or the number of instances as needed for testing.
