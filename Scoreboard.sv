@@ -7,7 +7,7 @@
         function new(string name);
             super.new(name);  
             run_delay = 22;
-           // register_with_scheduler();
+          
         endfunction: new
 
     endclass: Scoreboard
