@@ -7,7 +7,7 @@
         function new(string name);
             super.new(name);  
             run_delay = 25; //overrides default of 10
-            register_with_scheduler();
+           // register_with_scheduler();
         endfunction: new
 
     endclass: Env

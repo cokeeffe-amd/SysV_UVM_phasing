@@ -11,6 +11,7 @@ virtual class my_phase_base;
     //Constructor that takes string argument for name: passed by child class
     function new(string name);
         this.name = name;
+        register_with_scheduler();
     endfunction: new
     
     // Show scheduler has been instantiated - called by child class constructors, prevents running without scheduler

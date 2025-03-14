@@ -27,6 +27,9 @@ program automatic test1 ();
     
     initial begin
         $timeformat(-9, 1, "ns", 8);
+        //Allow command line to set number of components
+        setfromcommandline();
+
         // Create the phase scheduler 
         phase_scheduler = PhaseScheduler::get_instance();
 
@@ -64,6 +67,35 @@ program automatic test1 ();
 
 
     endfunction
+
+    // Set the number of components from the command line
+    //For example: simv -l simv.log +NUMSEQUENCERS=3 +NUMSCOREBOARDS=2
+    function void setfromcommandline();
+    $display("\n\n");    
+
+    if($value$plusargs("NUMDRIVERS=%0d",num_drivers))begin
+        $display("Number of drivers set to %d", num_drivers);
+    end
+    
+    if($value$plusargs("NUMMONITORS=%0d",num_monitors))begin
+        $display("Number of monitors set to %d", num_monitors);
+    end
+
+    if($value$plusargs("NUMSEQUENCERS=%0d",num_sequencers)) begin
+        $display("Number of sequencers set to %d", num_sequencers);
+    end
+
+    if($value$plusargs("NUMSCOREBOARDS=%0d",num_scoreboards)) begin
+        $display("Number of scoreboards set to %d", num_scoreboards);
+    end
+
+    if($value$plusargs("NUMENVS=%0d",num_envs)) begin
+        $display("Number of envs set to %d", num_envs);
+    end
+
+
+    endfunction
+
 
 
 endprogram: test1

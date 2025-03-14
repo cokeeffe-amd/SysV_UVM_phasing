@@ -6,7 +6,7 @@
     class Driver extends my_phase_base;
         function new(string name);
             super.new(name);  // Must call parent constructor first
-            register_with_scheduler(); // Then call the registration function from the base class
+          //  register_with_scheduler(); // Then call the registration function from the base class
         endfunction: new
 
     endclass: Driver

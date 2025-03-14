@@ -7,7 +7,7 @@
         function new(string name);
             super.new(name);  // Must call parent constructor first
             run_delay = 20; // Set run delay to 20 time units
-            register_with_scheduler(); // Then call the registration function from base class
+           // register_with_scheduler(); // Then call the registration function from base class
         endfunction: new
         
     endclass: Monitor

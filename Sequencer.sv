@@ -7,7 +7,6 @@
         function new(string name);
             super.new(name);  
             run_delay = 5;
-            register_with_scheduler();
         endfunction: new
 
     endclass: Sequencer
